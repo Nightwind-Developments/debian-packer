@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import os
+import shutil
 import json
 import click
 
@@ -17,6 +19,12 @@ KEY_PATH = "path"
 # List of Mapped File Records
 mapped_files = list()
 
+# Target Architecture
+arch = str()
+
+# Version
+version = str()
+
 
 # Mapped File Record class
 class Mapped:
@@ -30,22 +38,23 @@ class Mapped:
     def get_deb_path(self):
         return self.path
 
-    def print_details(self):
-        print("Name: " + self.name)
-        print("Path: " + self.path + "\n")
+    def print_details(self, offset1="", offset2=""):
+        print(offset1 + "Name: " + self.name)
+        print(offset2 + "Path: " + self.path + "\n")
 
 
 # Prints all the stored Mapped Record details
 def print_all_details():
-    for i in mapped_files:
-        i.print_details()
+    print("Stored Mapped File Records:")
+    for i in range(len(mapped_files)):
+        mapped_files[i].print_details(str(i) + ".\t", "\t")
 
 
 # Main Function to run on Start
 @click.command()
-@click.option('-f', '--file_map', type=click.Path('r'), default=DEFAULT_FILE_MAP)
+@click.option('-m', '--file_map', type=click.Path('r'), default=DEFAULT_FILE_MAP)
 def main(file_map):
-    click.echo("Welcome to " + APP_NAME + "by " + APP_AUTHOR)
+    click.echo("Welcome to " + APP_NAME + " by " + APP_AUTHOR + "\n")
 
     # Loads JSON File as a local variable
     with open(file_map) as f:
