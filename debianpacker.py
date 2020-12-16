@@ -17,10 +17,12 @@ DEFAULT_FILE_MAP = "example-map.json"
 HELP_FILE_MAP = "Path to the compatible JSON file with all the file mappings."
 
 # Default Location of Sources to Include in Package
+input_src = str()
 DEFAULT_INPUT_PATH = "./input"
 HELP_IP = "Path to directory with files to include in generated package."
 
 # Default Output Location for Package
+output_src = str()
 DEFAULT_OUTPUT_PATH = "./output"
 HELP_OP = "Path to directory where the package will be written to."
 
@@ -87,20 +89,22 @@ def get_package_name():
 @click.option('-n', '--pkg_name', type=click.STRING, default=GENERIC_PKG_NAME, help=HELP_PKG_NAME)
 @click.option('-v', '--pkg_version', type=click.STRING, help=HELP_PKG_VER)
 @click.option('-a', '--pkg_arch', type=click.STRING, help=HELP_PKG_ARCH)
-@click.option('-m', '--pkg_file_map', type=click.Path('r'), default=DEFAULT_FILE_MAP, help=HELP_FILE_MAP)
-@click.option('-i', '--input', type=click.Path('r'), default=DEFAULT_INPUT_PATH, help=HELP_IP)
-@click.option('-o', '--output', type=click.Path('w'), default=DEFAULT_OUTPUT_PATH, help=HELP_OP)
-def main(name, pkg_version, pkg_arch, file_map):
+@click.option('-m', '--pkg_file_map', type=click.File('r'), default=DEFAULT_FILE_MAP, help=HELP_FILE_MAP)
+@click.option('-i', '--input', type=click.Path(exists=True, readable=True), default=DEFAULT_INPUT_PATH, help=HELP_IP)
+@click.option('-o', '--output', type=click.Path(exists=False, writable=True), default=DEFAULT_OUTPUT_PATH, help=HELP_OP)
+def main(pkg_name, pkg_version, pkg_arch, pkg_file_map, input, output):
     click.echo("Welcome to " + APP_NAME + " by " + APP_AUTHOR + "\n")
 
     # Saves the Package Variables
-    basic_name = name
+    basic_name = pkg_name
     version = pkg_version
     arch = pkg_arch
 
+    input_src = input
+    output_src = output
+
     # Loads JSON File as a local variable
-    with open(file_map) as f:
-        the_map = json.load(f)
+    the_map = json.load(pkg_file_map)
 
     # Iterates through the JSON Array from File,
     # Converts JSON objects as 'Mapped' objects,
