@@ -1,0 +1,10 @@
+[
+  {
+    "name": "filename.txt",
+    "path": "/path/to/deb"
+  },
+  {
+    "name": "another_file.txt",
+    "path": "/path/to/deb"
+  }
+]
