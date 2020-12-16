@@ -123,5 +123,6 @@ def main(pkg_name, pkg_version, pkg_arch, pkg_file_map, input, output):
     print("Output File Name: " + get_package_name())
 
 
+# Ensures Main Function is to be run first
 if __name__ == "__main__":
     main()

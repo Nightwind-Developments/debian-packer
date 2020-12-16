@@ -8,6 +8,7 @@ setup(
     py_modules=['debianpacker'],
     install_requires=[
         'Click',
+        'deb-pkg-tools'
     ],
     entry_points='''
         [console_scripts]
