@@ -9,3 +9,7 @@
 .idea/modules.xml
 
 .idea/vcs.xml
+
+*.egg*
+
+__pycache__/debianpacker.cpython-38.pyc
