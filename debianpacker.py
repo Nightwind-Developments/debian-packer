@@ -16,6 +16,9 @@ GENERIC_PKG_NAME = "package"
 DEFAULT_FILE_MAP = "example-map.json"
 HELP_FILE_MAP = "Path to the compatible JSON file with all the file mappings."
 
+# Temporary Package Tree
+PACKAGE_TREE_LOC = "temporary"
+
 # Default Location of Sources to Include in Package
 input_src = str()
 DEFAULT_INPUT_PATH = "./input"
@@ -111,6 +114,9 @@ def main(pkg_name, pkg_version, pkg_arch, pkg_file_map, input, output):
 
     # Loads JSON File as a local variable
     the_map = json.load(pkg_file_map)
+
+    # Makes the folder where the Package Tree will be constructed
+    mkdir_if_not_exist(PACKAGE_TREE_LOC)
 
     # Iterates through the JSON Array from File,
     # Converts JSON objects as 'Mapped' objects,
