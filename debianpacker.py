@@ -72,6 +72,12 @@ class Mapped:
         print(offset2 + "Path: " + self.path + "\n")
 
 
+# Makes a new directory if it does not exist
+def mkdir_if_not_exist(path):
+    if not os.path.exists(path):
+        os.mkdir(path)
+
+
 # Prints all the stored Mapped Record details
 def print_all_details():
     print("Stored Mapped File Records:")

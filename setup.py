@@ -1,5 +1,5 @@
 from setuptools import setup
-from debianpacker import DEFAULT_INPUT_PATH, DEFAULT_OUTPUT_PATH
+from debianpacker import mkdir_if_not_exist, DEFAULT_INPUT_PATH, DEFAULT_OUTPUT_PATH
 import os
 
 setup(
@@ -15,9 +15,6 @@ setup(
     ''',
 )
 
-
-if not os.path.exists(DEFAULT_INPUT_PATH):
-    os.mkdir(DEFAULT_INPUT_PATH)
-
-if not os.path.exists(DEFAULT_OUTPUT_PATH):
-    os.mkdir(DEFAULT_OUTPUT_PATH)
+# Creates Default Input & Output Directories
+mkdir_if_not_exist(DEFAULT_INPUT_PATH)
+mkdir_if_not_exist(DEFAULT_OUTPUT_PATH)
