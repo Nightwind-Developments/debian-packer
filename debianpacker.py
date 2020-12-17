@@ -39,6 +39,9 @@ FILE_EXT = ".deb"
 # File Name Separator
 FN_SEP = "_"
 
+# Path Separator
+PATH_SEP = "/"
+
 # List of Mapped File Records
 mapped_files = list()
 
@@ -91,6 +94,13 @@ def print_all_details():
 # Generates File Name of the Package
 def get_package_name():
     return basic_name + FN_SEP + version + FN_SEP + arch + FILE_EXT
+
+
+def build_package_tree():
+    for r in mapped_files:
+        file_in = input_src + PATH_SEP + r.get_name()
+        file_out = r.get_deb_path() + PATH_SEP + r.get_name()
+        shutil.copytree(file_in, file_out, follow_symlinks=False)
 
 
 # Main Function to run on Start
