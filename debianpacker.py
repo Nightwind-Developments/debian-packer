@@ -4,6 +4,7 @@ import os
 import shutil
 import json
 import click
+import deb_pkg_tools.package
 
 # App Details
 APP_NAME = "Debian Packer"
@@ -17,7 +18,7 @@ DEFAULT_FILE_MAP = "example-map.json"
 HELP_FILE_MAP = "Path to the compatible JSON file with all the file mappings."
 
 # Temporary Package Tree
-PACKAGE_TREE_LOC = "temporary"
+PACKAGE_TREE_LOC = "./temporary"
 
 # Default Location of Sources to Include in Package
 input_src = str()
@@ -93,14 +94,40 @@ def print_all_details():
 
 # Generates File Name of the Package
 def get_package_name():
-    return basic_name + FN_SEP + version + FN_SEP + arch + FILE_EXT
+    global basic_name
+    global version
+    global arch
+    pkg_name = basic_name
+
+    if version is not None:
+        pkg_name += FN_SEP + version
+
+    if arch is not None:
+        pkg_name += FN_SEP + arch
+
+    pkg_name += FILE_EXT
+
+    return pkg_name
 
 
+# Build Package Tree
 def build_package_tree():
-    for r in mapped_files:
+    for i in range(len(mapped_files)):
+        r = mapped_files[i]
         file_in = input_src + PATH_SEP + r.get_name()
-        file_out = r.get_deb_path() + PATH_SEP + r.get_name()
-        shutil.copytree(file_in, file_out, follow_symlinks=False)
+        file_out = PACKAGE_TREE_LOC + r.get_deb_path() + PATH_SEP + r.get_name()
+        print("Input: " + file_in)
+        print("Output: " + file_out)
+        try:
+            shutil.copy(file_in, file_out)
+        except IOError as io_err:
+            os.makedirs(os.path.dirname(file_out))
+            shutil.copy(file_in, file_out)
+
+
+# Generate Package
+def run_package_generation():
+    deb_pkg_tools.package.build_package(PACKAGE_TREE_LOC, output_src)
 
 
 # Main Function to run on Start
@@ -115,12 +142,19 @@ def main(pkg_name, pkg_version, pkg_arch, pkg_file_map, input, output):
     click.echo("Welcome to " + APP_NAME + " by " + APP_AUTHOR + "\n")
 
     # Saves the Package Variables
+    global basic_name
     basic_name = pkg_name
+    global version
     version = pkg_version
+    global arch
     arch = pkg_arch
 
+    global input_src
     input_src = input
+    print("Input Prefix: " + input_src)
+    global output_src
     output_src = output
+    print("Output Prefix: " + output_src + "\n")
 
     # Loads JSON File as a local variable
     the_map = json.load(pkg_file_map)
@@ -128,15 +162,21 @@ def main(pkg_name, pkg_version, pkg_arch, pkg_file_map, input, output):
     # Makes the folder where the Package Tree will be constructed
     mkdir_if_not_exist(PACKAGE_TREE_LOC)
 
+    shutil.rmtree(PACKAGE_TREE_LOC)
+
     # Iterates through the JSON Array from File,
     # Converts JSON objects as 'Mapped' objects,
     # Saves to Local List, 'mapped_files'
     for i in the_map:
         mapped_files.append(Mapped(i))
 
-    print_all_details()
+    #print_all_details()
+
+    build_package_tree()
 
     print("Output File Name: " + get_package_name())
+
+    run_package_generation()
 
 
 # Ensures Main Function is to be run first

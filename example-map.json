@@ -1,5 +1,9 @@
 [
   {
+    "name": "control",
+    "path": "/DEBIAN/"
+  },
+  {
     "name": "filename.txt",
     "path": "/path/to/deb"
   },

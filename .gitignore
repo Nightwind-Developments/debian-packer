@@ -14,3 +14,6 @@
 
 __pycache__/debianpacker.cpython-38.pyc
 /build/
+/input/
+/output/
+/temporary/
