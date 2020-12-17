@@ -105,7 +105,7 @@ def get_package_name():
     if arch is not None:
         pkg_name += FN_SEP + arch
 
-    pkg_name += FILE_EXT
+    #pkg_name += FILE_EXT
 
     return pkg_name
 
@@ -115,19 +115,20 @@ def build_package_tree():
     for i in range(len(mapped_files)):
         r = mapped_files[i]
         file_in = input_src + PATH_SEP + r.get_name()
-        file_out = PACKAGE_TREE_LOC + r.get_deb_path() + PATH_SEP + r.get_name()
+        file_out_prefix = PACKAGE_TREE_LOC + PATH_SEP + get_package_name() + PATH_SEP + r.get_deb_path()
+        file_out = file_out_prefix + r.get_name()
         print("Input: " + file_in)
-        print("Output: " + file_out)
+        print("Output: " + file_out + "\n")
         try:
             shutil.copy(file_in, file_out)
         except IOError as io_err:
-            os.makedirs(os.path.dirname(file_out))
+            os.makedirs(os.path.dirname(file_out_prefix))
             shutil.copy(file_in, file_out)
 
 
 # Generate Package
 def run_package_generation():
-    deb_pkg_tools.package.build_package(PACKAGE_TREE_LOC, output_src)
+    deb_pkg_tools.package.build_package(PACKAGE_TREE_LOC + PATH_SEP + get_package_name(), output_src)
 
 
 # Main Function to run on Start
@@ -162,7 +163,14 @@ def main(pkg_name, pkg_version, pkg_arch, pkg_file_map, input, output):
     # Makes the folder where the Package Tree will be constructed
     mkdir_if_not_exist(PACKAGE_TREE_LOC)
 
+    # Ensures Package Tree is empty
     shutil.rmtree(PACKAGE_TREE_LOC)
+
+    # Makes the folder where the Package Output will be saved
+    mkdir_if_not_exist(output_src)
+
+    # Ensures Package Output is empty first
+    #shutil.rmtree(output_src)
 
     # Iterates through the JSON Array from File,
     # Converts JSON objects as 'Mapped' objects,
