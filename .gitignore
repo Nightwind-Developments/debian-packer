@@ -10,3 +10,5 @@ __pycache__/debianpacker.cpython-38.pyc
 /temporary/
 
 je_deb_plan.json
+
+.DS_Store
