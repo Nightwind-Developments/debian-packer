@@ -8,3 +8,5 @@ __pycache__/debianpacker.cpython-38.pyc
 /input/
 /output/
 /temporary/
+
+je_deb_plan.json
