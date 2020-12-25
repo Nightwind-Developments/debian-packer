@@ -1,15 +1,6 @@
 /venv/
 
-.idea/debian-packer.iml
-
-.idea/inspectionProfiles/profiles_settings.xml
-
-.idea/misc.xml
-
-.idea/modules.xml
-
-.idea/vcs.xml
-
+.idea
 *.egg*
 
 __pycache__/debianpacker.cpython-38.pyc
