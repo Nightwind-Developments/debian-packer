@@ -1,0 +1,55 @@
+name: 'Debian Packer'
+description: 'Dynamically generates a Debian package using provided resources and pre-configured files. Perfect for CI/CD applications.'
+branding:
+  icon: codesandbox
+  color: 'gray-dark'
+
+inputs:
+  # Input Resources Directory
+  input_dir:
+    description: 'Path to the directory with all the files to be included in the generated package'
+    required: true
+    default: "${{ github.workspace }}/input/"
+  # Build Directory Layout File
+  layout_map_file:
+    description: 'Path to JSON configuration file with how to organise the build package directory'
+    required: true
+  # Package Name
+  package_name:
+    description: 'Name of the Package to be used in the file name'
+    required: true
+  # Package Version Number
+  package_version:
+    description: 'Version number of the Package to be used in the file name'
+    required: true
+  # Target Architecture of Package
+  package_arch:
+    description: 'Architecture of the Package to be used in the file name'
+    required: false
+    default: ''
+  # Target Path of Generated Package
+  output_dir:
+    description: 'Directory path to where the generated package is intended to be saved'
+    required: false
+    default: "${{ github.workspace }}/output/"
+
+outputs:
+  generated_package_path:
+    description: 'The configured path where the generated package is saved and can be retrieved'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - -n
+    - ${{ inputs.package_name }}
+    - -v
+    - ${{ inputs.package_version }}
+    - -a
+    - ${{ inputs.package_arch }}
+    - -m
+    - ${{ inputs.layout_map_file }}
+    - -i
+    - ${{ inputs.input_dir }}
+    - -o
+    - ${{ inputs.output_dir }}

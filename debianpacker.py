@@ -145,6 +145,8 @@ def build_package_tree():
             os.makedirs(os.path.dirname(file_out_prefix))
             shutil.copy(file_in, file_out)
 
+def get_final_package_path():
+    return output_src + get_package_name()
 
 # Generate Package
 def run_package_generation():
@@ -205,6 +207,11 @@ def main(pkg_name, pkg_version, pkg_arch, pkg_file_map, input, output):
     print("Output File Name: " + get_package_name())
 
     run_package_generation()
+
+    print("Completed!")
+
+    # Sets a GitHub Actions output variable
+    print("::set-output name=generated_package_path::" + get_final_package_path())
 
 
 # Ensures Main Function is to be run first

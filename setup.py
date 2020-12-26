@@ -16,6 +16,8 @@
 #  along with this program.
 #  If not, see <https://www.gnu.org/licenses/>.
 
+# NOTE: This file may not be needed after all
+
 from setuptools import setup
 from debianpacker import mkdir_if_not_exist, DEFAULT_INPUT_PATH, DEFAULT_OUTPUT_PATH
 import os
