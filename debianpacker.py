@@ -1,5 +1,21 @@
 #!/usr/bin/env python
 
+#  Copyright (C) 2020  Nightwind Future Industries Ltd. (NZ)
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation, either version 3 of the License,
+#  or any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Lesser General Public License for more details.
+#
+#  You should have received a copy of the GNU Lesser General Public License
+#  along with this program.
+#  If not, see <https://www.gnu.org/licenses/>.
+
 import os
 import shutil
 import json
@@ -8,13 +24,17 @@ import deb_pkg_tools.package
 
 # App Details
 APP_NAME = "Debian Packer"
-APP_AUTHOR = "Nightwind Developments"
+APP_AUTHOR = "Nightwind Future Industries Limited"
+APP_TITLE = "{} - Copyright (C) 2020 {}".format(APP_NAME, APP_AUTHOR)
+APP_LICENSE_1 = "This program comes with ABSOLUTELY NO WARRANTY"
+APP_LICENSE_2 = "This is free software and you are welcome to redistribute it under certain conditions."
+APP_LICENSE_3 = "For more information, run this program with the following arguments '-l' or '--license'"
 
 # Generic Package Name
 GENERIC_PKG_NAME = "package"
 
 # Default Location of File Map file
-DEFAULT_FILE_MAP = "example-map.json"
+DEFAULT_FILE_MAP = "examples/example-map.json"
 HELP_FILE_MAP = "Path to the compatible JSON file with all the file mappings."
 
 # Temporary Package Tree
