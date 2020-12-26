@@ -2,6 +2,8 @@
 
 **Note:** This repository is still a _work in progress_.
 
+![Debian Packer Example](https://github.com/Nightwind-Developments/debian-packer/workflows/Debian%20Packer%20Example/badge.svg?branch=main)
+
 This application & GitHub Action can build & generate DEBIAN packages with ease. Simply provide the resources, 
 a configured file map and this app will generate for you a DEBIAN package with ease!
 *Debian Packer* is ideal for applications that require DEBIAN package to be dynamically generated, such as 
