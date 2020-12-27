@@ -1,6 +1,6 @@
 {
   "Package": "HelloWorld",
-  "Version": "0.0.0",
+  "Version": "1.0.0",
   "Architecture": "all",
   "Maintainer": "Nightwind Developmnets",
   "Description": "This is a generic application that just says \"Hello World\"."

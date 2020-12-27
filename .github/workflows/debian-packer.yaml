@@ -14,8 +14,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-        # To Do:
-        # Generate Example Control File
-        # Prepare Example Package Resources
-        # Run Debian Packager
-        # Upload Generated Package as Artifact
+      - name: Generate Control File
+        uses: Nightwind-Developments/debian-control-file-builder@1.0.0
+        with:
+          config-file: 'examples/control_file_generate/example_control_template.json'
+          deps-file: 'examples/control_file_generate/dependencies.txt'
+          output-path: 'examples/input_example/'
+
+      - name: Build Docker Container & Run Debian Packer
+        uses: ./
+        id: container
+        with:
+          input_dir: 'examples/input_example/'
+          output_dir: 'output/'
+          layout_map_file: 'examples/example-map.json'
+          package_name: 'HelloWorld'
+          package_version: '1.0.0'
+          package_arch: 'all'
+
+      - name: Upload Generated Control File
+        uses: actions/upload-artifact@v2
+        with:
+          name: generated-hello-world-package
+          path: "${{ steps.container.outputs.generated_package_path }}"
+          if-no-files-found: error
