@@ -16,7 +16,7 @@ jobs:
 
       - name: Generate Control File
         id: control-gen
-        uses: Nightwind-Developments/debian-control-file-builder@1.0.2
+        uses: Nightwind-Developments/debian-control-file-builder@1.0.3
         with:
           config-file: 'examples/control_file_generate/example_control_template.json'
           deps-file: 'examples/control_file_generate/dependencies.txt'
@@ -28,8 +28,8 @@ jobs:
       - name: Confirms Control File is Present
         run: ls ${{ steps.control-gen.outputs.control_file_path }}
 
-      - name: Copies control File to Intended Location
-        run: cp ${{ steps.control-gen.outputs.control_file_path }} examples/input_example
+      #- name: Copies control File to Intended Location
+      #  run: cp ${{ steps.control-gen.outputs.control_file_path }} examples/input_example
 
       - name: Prints Contents of Input Resources
         run: ls -l examples/input_example/
