@@ -25,11 +25,14 @@ jobs:
       - name: Prints Output File Path
         run: echo "${{ steps.control-gen.outputs.control_file_path }}"
 
-      - name: Prints Contents of Input Resources
-        run: ls -l examples/input_example/
-
       - name: Confirms Control File is Present
         run: ls ${{ steps.control-gen.outputs.control_file_path }}
+
+      - name: Copies control File to Intended Location
+        run: cp ${{ steps.control-gen.outputs.control_file_path }} examples/input_example
+
+      - name: Prints Contents of Input Resources
+        run: ls -l examples/input_example/
 
       - name: Build Docker Container & Run Debian Packer
         uses: ./
