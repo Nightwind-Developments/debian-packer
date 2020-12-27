@@ -144,8 +144,10 @@ def build_package_tree():
             os.makedirs(os.path.dirname(file_out_prefix))
             shutil.copy(file_in, file_out)
 
+
 def get_final_package_path():
     return output_src + get_package_name() + FILE_EXT
+
 
 # Generate Package
 def run_package_generation():
