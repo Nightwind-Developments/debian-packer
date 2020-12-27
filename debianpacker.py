@@ -135,7 +135,8 @@ def build_package_tree():
     for i in range(len(mapped_files)):
         r = mapped_files[i]
         file_in = input_src + PATH_SEP + r.get_name()
-        file_out_prefix = PACKAGE_TREE_LOC + PATH_SEP + get_package_name() + PATH_SEP + r.get_deb_path()
+        #file_out_prefix = PACKAGE_TREE_LOC + PATH_SEP + get_package_name() + PATH_SEP + r.get_deb_path()
+        file_out_prefix = PACKAGE_TREE_LOC + PATH_SEP + get_package_name() + r.get_deb_path()
         file_out = file_out_prefix + r.get_name()
         print("Input: " + file_in)
         print("Output: " + file_out + "\n")
