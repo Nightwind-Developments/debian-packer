@@ -125,8 +125,6 @@ def get_package_name():
     if arch is not None:
         pkg_name += FN_SEP + arch
 
-    #pkg_name += FILE_EXT
-
     return pkg_name
 
 
@@ -147,7 +145,7 @@ def build_package_tree():
             shutil.copy(file_in, file_out)
 
 def get_final_package_path():
-    return output_src + get_package_name()
+    return output_src + get_package_name() + FILE_EXT
 
 # Generate Package
 def run_package_generation():
