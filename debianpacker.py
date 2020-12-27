@@ -146,7 +146,7 @@ def build_package_tree():
 
 
 def get_final_package_path():
-    return output_src + get_package_name() + FILE_EXT
+    return output_src + PATH_SEP + get_package_name() + FILE_EXT
 
 
 # Generate Package
