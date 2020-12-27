@@ -28,6 +28,9 @@ jobs:
       - name: Prints Contents of Input Resources
         run: ls -l examples/input_example/
 
+      - name: Confirms Control File is Present
+        run ls ${{ steps.control-gen.outputs.control_file_path }}
+
       - name: Build Docker Container & Run Debian Packer
         uses: ./
         id: container
