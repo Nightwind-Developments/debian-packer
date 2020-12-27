@@ -4,11 +4,11 @@
     "path": "/DEBIAN/"
   },
   {
-    "name": "filename.txt",
-    "path": "/path/to/deb"
+    "name": "postinst",
+    "path": "/DEBIAN/"
   },
   {
-    "name": "another_file.txt",
-    "path": "/path/to/deb"
+    "name": "hello_world",
+    "path": "/usr/bin/"
   }
 ]
