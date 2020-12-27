@@ -16,7 +16,7 @@ jobs:
 
       - name: Generate Control File
         id: control-gen
-        uses: Nightwind-Developments/debian-control-file-builder@1.0.3
+        uses: Nightwind-Developments/debian-control-file-builder@1.0.4
         with:
           config-file: 'examples/control_file_generate/example_control_template.json'
           deps-file: 'examples/control_file_generate/dependencies.txt'
