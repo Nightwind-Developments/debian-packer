@@ -21,6 +21,9 @@ jobs:
           deps-file: 'examples/control_file_generate/dependencies.txt'
           output-path: 'examples/input_example/'
 
+      - name: Prints Contents of Input Resources
+        run: ls -l examples/input_example/
+
       - name: Build Docker Container & Run Debian Packer
         uses: ./
         id: container

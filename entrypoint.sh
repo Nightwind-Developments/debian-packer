@@ -81,4 +81,5 @@ if debpack ${DP_ARGS} ; then
   echo "Success"
 else
   echo "App Failed"
+  exit 1
 fi
