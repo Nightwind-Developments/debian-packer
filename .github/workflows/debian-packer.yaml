@@ -15,11 +15,15 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Generate Control File
+        id: control-gen
         uses: Nightwind-Developments/debian-control-file-builder@1.0.0
         with:
           config-file: 'examples/control_file_generate/example_control_template.json'
           deps-file: 'examples/control_file_generate/dependencies.txt'
           output-path: 'examples/input_example/'
+
+      - name: Prints Output File Path
+        run: echo "${{ steps.control-gen.outputs.control_file_path }}"
 
       - name: Prints Contents of Input Resources
         run: ls -l examples/input_example/
