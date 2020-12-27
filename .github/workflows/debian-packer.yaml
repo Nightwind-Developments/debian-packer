@@ -25,8 +25,8 @@ jobs:
         uses: ./
         id: container
         with:
-          input_dir: 'examples/input_example/'
-          output_dir: 'output/'
+          input_dir: 'examples/input_example'
+          output_dir: 'output'
           layout_map_file: 'examples/example-map.json'
           package_name: 'HelloWorld'
           package_version: '1.0.0'
