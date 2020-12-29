@@ -1,7 +1,7 @@
 name: 'Debian Packer'
 description: 'Dynamically generates a Debian package using provided resources and pre-configured files. Perfect for CI/CD applications.'
 branding:
-  icon: codesandbox
+  icon: codepen
   color: 'gray-dark'
 
 inputs:
