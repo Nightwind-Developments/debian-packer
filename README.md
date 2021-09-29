@@ -16,6 +16,10 @@ The following dependencies are required for this application to run:
 
 They can simply be installed using `pip install [dependency name] ..`
 
+## Contributors
+The following developers have contributed to this repository:
+* [Asami De Almeida](https://github.com/RedHoodedWraith) - theengineer@redhoodedwraith.com
+
 ## Copyright & Licensing
 Copyright (C) 2020  Nightwind Future Industries Ltd. (NZ) <https://nightwind-developments.co.nz/>
 <hello@nightwind-developments.co.nz>
