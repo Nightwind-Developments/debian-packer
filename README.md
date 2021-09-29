@@ -155,7 +155,6 @@ The following file structure will be present in the generated package using the 
   |-- usr
   |   |-- bin
   |       |__ hello_world
-  |__ ...
 ```
 
 ## Dependencies
