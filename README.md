@@ -146,10 +146,10 @@ All the files that are to be included package are to be in the root path of the 
 ```
 
 #### Output Example
-The package file structure with the above example will produce the following:
+The following file structure will be present in the generated package using the configuration example above:
 ```
   .
-  | DEBIAN
+  |-- DEBIAN
   |   |-- control
   |   |__ postinst
   |-- usr
