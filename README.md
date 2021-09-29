@@ -138,21 +138,25 @@ A JSON File, formatted like below, can be used to specify the paths package file
 #### Input Example
 All the files that are to be included package are to be in the root path of the specified `input_dir`. Currently input subdirectories are not yet supported.
 </br>For example: In the case of the JSON file example above and the [Simple Workflow](#json-layout-map-file) example above, the input directory `input_example` should contain the following files in its root directory prior to running this Action:
+```
   examples/input_example/
     |-- control
     |-- postinst
     |__ hello_world
+```
 
 #### Output Example
 The package file structure with the above example will produce the following:
+```
   .
-  |-- DEBIAN
+  | DEBIAN
   |   |-- control
   |   |__ postinst
   |-- usr
   |   |-- bin
   |       |__ hello_world
   |__ ...
+```
 
 ## Dependencies
 The following dependencies are required for this application to run:
