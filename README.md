@@ -1,7 +1,5 @@
 # Debian Packer
 
-**Note:** This repository is still a _work in progress_.
-
 ![Debian Packer Example](https://github.com/Nightwind-Developments/debian-packer/workflows/Debian%20Packer%20Example/badge.svg?branch=main)
 
 ## Contents
@@ -10,6 +8,7 @@
    1. [Simple Workflow](#simple-workflow)
    1. [Input Parameters](#input-parameters)
    1. [Output Variables](#output-variables)
+   1. [JSON Layout Map File](#json-layout-map-file)
 1. [Dependencies](#dependencies)
 1. [Contributors](#contributors)
 1. [Copyright & Licensing](#copyright--licensing)
@@ -20,7 +19,7 @@ a configured file map and this app will generate for you a DEBIAN package with e
 *Debian Packer* is ideal for applications that require DEBIAN package to be dynamically generated, such as
 part of an automated release with CI/CD.
 
-This GitHub Action and the software included is designed to used another one of our projects,
+This GitHub Action and the software included is designed to be used another one of our projects,
 [Debian Control File Builder](https://github.com/Nightwind-Developments/debian-control-file-builder), which can be used to generate the required Debian Control File for this action.
 
 ## Usage
@@ -64,7 +63,7 @@ jobs:
         run: ls -l examples/input_example/
 
       - name: Build Docker Container & Run Debian Packer
-        uses: ./
+        uses: Nightwind-Developments/debian-packer@latest
         id: container
         with:
           input_dir: 'examples/input_example'
@@ -74,7 +73,7 @@ jobs:
           package_version: '1.0.0'
           package_arch: 'all'
 
-      - name: Upload Generated Control File
+      - name: Upload Generated Package File
         uses: actions/upload-artifact@v2
         with:
           name: generated-hello-world-package
@@ -115,6 +114,44 @@ Example use case for output variables:
     - name: Print Output Variable
       run echo "${{ steps.step-id.outputs.output_variable }}"
 ```
+
+### JSON Layout Map File
+A JSON File, formatted like below, can be used to specify the paths package files can be stored within the package, and subsequently post installation (with the exception of `DEBIAN`).
+
+```JSON
+[
+  {
+    "name": "control",
+    "path": "/DEBIAN/"
+  },
+  {
+    "name": "postinst",
+    "path": "/DEBIAN/"
+  },
+  {
+    "name": "hello_world",
+    "path": "/usr/bin/"
+  }
+]
+```
+
+#### Input Example
+All the files that are to be included package are to be in the root path of the specified `input_dir`. Currently input subdirectories are not yet supported.
+</br>For example: In the case of the JSON file example above and the [Simple Workflow](#json-layout-map-file) example above, the input directory `input_example` should contain the following files in its root directory prior to running this Action:
+  examples/input_example/
+    |__ control
+    |__ postinst
+    |__ hello_world
+
+#### Output Example
+The package file structure with the above example will produce the following:
+  .
+  |__ DEBIAN
+  |   |__ control
+  |   |__ postinst
+  |__ usr
+  |   |__ bin
+  |       |__ hello_world
 
 ## Dependencies
 The following dependencies are required for this application to run:
