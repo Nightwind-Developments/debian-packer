@@ -4,12 +4,51 @@
 
 ![Debian Packer Example](https://github.com/Nightwind-Developments/debian-packer/workflows/Debian%20Packer%20Example/badge.svg?branch=main)
 
-This application & GitHub Action can build & generate DEBIAN packages with ease. Simply provide the resources, 
+## Contents
+
+## Description
+This application & GitHub Action can build & generate DEBIAN packages with ease. Simply provide the resources,
 a configured file map and this app will generate for you a DEBIAN package with ease!
-*Debian Packer* is ideal for applications that require DEBIAN package to be dynamically generated, such as 
+*Debian Packer* is ideal for applications that require DEBIAN package to be dynamically generated, such as
 part of an automated release with CI/CD.
 
-## Dependencies
+## Usage
+
+### Input Parameters
+| Name          | Type   | Required | Default                           | Description |
+|---------------|--------|----------|-----------------------------------|-------------|
+| `input_dir` | String | Yes      | `${{ github.workspace }}/input/`  | Path to the directory with all the files to be included in the generated package |
+| `layout_map_file`   | String | Yes       |                                   | Path to JSON configuration file with how to organise the build package directory |
+| `package_name`   | String | Yes       |                                   | Name of the Package to be used in the file name |
+| `package_version`   | String | Yes       |                                   | Version number of the Package to be used in the file name |
+| `package_arch`   | String | No       |                                   | Architecture of the Package to be used in the file name |
+| `output_dir` | String | No       | `${{ github.workspace }}/output/` | Directory path to where the generated package is intended to be saved |
+
+Example use case for input parameters:
+```yaml
+  steps:
+    - name: Step Name
+      with:
+        input-name: value
+```
+
+### Output Variables
+| Name                | Type   | Description |
+|---------------------|--------|-------------|
+| `generated_package_path` | String | The configured path where the generated package is saved and can be retrieved |
+
+Example use case for output variables:
+```yaml
+    steps:
+    - name: Step Name
+      id: step-id
+      run: ./
+
+    - name: Print Output Variable
+      run echo "${{ steps.step-id.outputs.output_variable }}"
+```
+
+## Dependencies List
 The following dependencies are required for this application to run:
 * [json](https://docs.python.org/3/library/json.html) - Built-in
 * [click](https://click.palletsprojects.com/en/7.x/)
