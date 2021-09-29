@@ -7,6 +7,7 @@
 ## Contents
 1. [Description](#description)
 1. [Usage](#usage)
+   1. [Simple Workflow](#simple-workflow)
    1. [Input Parameters](#input-parameters)
    1. [Output Variables](#output-variables)
 1. [Dependencies](#dependencies)
@@ -23,6 +24,63 @@ This GitHub Action and the software included is designed to used another one of 
 [Debian Control File Builder](https://github.com/Nightwind-Developments/debian-control-file-builder), which can be used to generate the required Debian Control File for this action.
 
 ## Usage
+Here is a simple example of how you can use this Action in your Workflow:
+### Simple Workflow
+```yaml
+name: Debian Packer Example
+
+on:
+  push:
+    branches: [ master, main ]
+  workflow_dispatch:
+
+jobs:
+  deb-control-file-build:
+    name: Generate Debian Package
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Generate Control File
+        id: control-gen
+        uses: Nightwind-Developments/debian-control-file-builder@latest
+        with:
+          config-file: 'examples/control_file_generate/example_control_template.json'
+          deps-file: 'examples/control_file_generate/dependencies.txt'
+          output-path: 'examples/input_example/'
+
+      - name: Prints Output File Path
+        run: echo "${{ steps.control-gen.outputs.control_file_path }}"
+
+      - name: Confirms Control File is Present
+        run: ls ${{ steps.control-gen.outputs.control_file_path }}
+
+      #- name: Copies control File to Intended Location (useful if Debian Control file is not in the default location)
+      #  run: cp ${{ steps.control-gen.outputs.control_file_path }} examples/input_example
+
+      - name: Prints Contents of Input Resources
+        run: ls -l examples/input_example/
+
+      - name: Build Docker Container & Run Debian Packer
+        uses: ./
+        id: container
+        with:
+          input_dir: 'examples/input_example'
+          output_dir: 'output'
+          layout_map_file: 'examples/example-map.json'
+          package_name: 'HelloWorld'
+          package_version: '1.0.0'
+          package_arch: 'all'
+
+      - name: Upload Generated Control File
+        uses: actions/upload-artifact@v2
+        with:
+          name: generated-hello-world-package
+          path: "${{ steps.container.outputs.generated_package_path }}"
+          if-no-files-found: error
+```
 
 ### Input Parameters
 | Name          | Type   | Required | Default                           | Description |
