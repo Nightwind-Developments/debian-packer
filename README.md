@@ -5,6 +5,13 @@
 ![Debian Packer Example](https://github.com/Nightwind-Developments/debian-packer/workflows/Debian%20Packer%20Example/badge.svg?branch=main)
 
 ## Contents
+1. [Description](#description)
+1. [Usage](#usage)
+   1. [Input Parameters](#input-parameters)
+   1. [Output Variables](#output-variables)
+1. [Dependencies](#dependencies)
+1. [Contributors](#contributors)
+1. [Copyright & Licensing](#copyright--licensing)
 
 ## Description
 This application & GitHub Action can build & generate DEBIAN packages with ease. Simply provide the resources,
@@ -48,7 +55,7 @@ Example use case for output variables:
       run echo "${{ steps.step-id.outputs.output_variable }}"
 ```
 
-## Dependencies List
+## Dependencies
 The following dependencies are required for this application to run:
 * [json](https://docs.python.org/3/library/json.html) - Built-in
 * [click](https://click.palletsprojects.com/en/7.x/)
