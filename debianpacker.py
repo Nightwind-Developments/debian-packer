@@ -50,6 +50,10 @@ output_src = str()
 DEFAULT_OUTPUT_PATH = "./output"
 HELP_OP = "Path to directory where the package will be written to."
 
+# GitHub Actions Output Environment File
+HELP_GHO = ("Path to environment file where GitHub Actions Outputs are appended to to set Action Environment "
+            "Variables. Its alias is usually '$GITHUB_OUTPUT'.")
+
 # JSON Map File Keys
 KEY_NAME = "name"
 KEY_PATH = "path"
@@ -162,7 +166,8 @@ def run_package_generation():
 @click.option('-m', '--pkg_file_map', type=click.File('r'), default=DEFAULT_FILE_MAP, help=HELP_FILE_MAP)
 @click.option('-i', '--input', type=click.Path(exists=True, readable=True), default=DEFAULT_INPUT_PATH, help=HELP_IP)
 @click.option('-o', '--output', type=click.Path(exists=False, writable=True), default=DEFAULT_OUTPUT_PATH, help=HELP_OP)
-def main(pkg_name, pkg_version, pkg_arch, pkg_file_map, input, output):
+@click.option('-gho', '--github_output', type=click.Path(exists=True, writable=True), help=HELP_GHO)
+def main(pkg_name, pkg_version, pkg_arch, pkg_file_map, input, output, env_outputs):
     click.echo("Welcome to " + APP_NAME + " by " + APP_AUTHOR + "\n")
 
     # Saves the Package Variables
@@ -179,6 +184,11 @@ def main(pkg_name, pkg_version, pkg_arch, pkg_file_map, input, output):
     global output_src
     output_src = output
     print("Output Prefix: " + output_src + "\n")
+
+    # Opens the GitHub Environments File (replaces ::set-output)
+    global gh_outputs_file_path
+    gh_outputs_file_path = env_outputs
+    gh_env_file = os.open(gh_outputs_file_path, os.O_APPEND)
 
     # Loads JSON File as a local variable
     the_map = json.load(pkg_file_map)
@@ -212,7 +222,8 @@ def main(pkg_name, pkg_version, pkg_arch, pkg_file_map, input, output):
     print("Completed!")
 
     # Sets a GitHub Actions output variable
-    print("::set-output name=generated_package_path::" + get_final_package_path())
+    gh_env_file.write("{generated_package_path}={" + get_final_package_path() + "}\n")
+    gh_env_file.close()
 
 
 # Ensures Main Function is to be run first
