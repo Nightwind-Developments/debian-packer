@@ -222,7 +222,7 @@ def main(pkg_name, pkg_version, pkg_arch, pkg_file_map, input, output, github_ou
     print("Completed!")
 
     # Sets a GitHub Actions output variable
-    gh_env_file.write("{generated_package_path}={" + get_final_package_path() + "}\n")
+    gh_env_file.write("{generated_package_path}={" + get_final_package_path() + "}")
     gh_env_file.close()
 
 
