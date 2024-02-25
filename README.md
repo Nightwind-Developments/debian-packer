@@ -20,8 +20,8 @@ a configured file map and this app will generate for you a DEBIAN package with e
 *Debian Packer* is ideal for applications that require Debian package to be dynamically generated, such as
 part of an automated release with CI/CD.
 
-This GitHub Action and the software included is designed to be used another one of our projects,
-[Debian Control File Builder](https://github.com/Nightwind-Developments/debian-control-file-builder), which can be used to generate the required Debian Control File for this action.
+This GitHub Action can optionally be used with another one of our projects,
+[Debian Control File Builder](https://github.com/Nightwind-Developments/debian-control-file-builder), which can generate the required Debian Control File for this action, if you don't already have one.
 
 ## Usage
 Here is a simple example of how you can use this Action in your Workflow:
