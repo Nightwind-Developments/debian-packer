@@ -72,12 +72,11 @@ echo "PACKAGE ARCH  = ${PKG_ARCH}"
 echo "LAYOUT MAP FILE  = ${PKG_MAP}"
 echo "INPUT DIRECTORY PATH  = ${PKG_IN_DIR}"
 echo "OUTPUT DIRECTORY PATH  = ${PKG_OUT_DIR}"
-echo "GITHUB ENVIRONMENTS PATH = $GITHUB_OUTPUT"
 
 # Runs the Main Application
 echo ""
 echo "Starting Debian Packer Application"
-DP_ARGS="-n ${PKG_NAME} -v ${PKG_VER} -a ${PKG_ARCH} -m ${PKG_MAP} -i ${PKG_IN_DIR} -o ${PKG_OUT_DIR} -gho $GITHUB_OUTPUT"
+DP_ARGS="-n ${PKG_NAME} -v ${PKG_VER} -a ${PKG_ARCH} -m ${PKG_MAP} -i ${PKG_IN_DIR} -o ${PKG_OUT_DIR}"
 if debpack ${DP_ARGS} ; then
   echo "Success"
 else

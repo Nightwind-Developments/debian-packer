@@ -166,8 +166,7 @@ def run_package_generation():
 @click.option('-m', '--pkg_file_map', type=click.File('r'), default=DEFAULT_FILE_MAP, help=HELP_FILE_MAP)
 @click.option('-i', '--input', type=click.Path(exists=True, readable=True), default=DEFAULT_INPUT_PATH, help=HELP_IP)
 @click.option('-o', '--output', type=click.Path(exists=False, writable=True), default=DEFAULT_OUTPUT_PATH, help=HELP_OP)
-@click.option('-gho', '--github_output', type=click.Path(exists=True, writable=True), help=HELP_GHO)
-def main(pkg_name, pkg_version, pkg_arch, pkg_file_map, input, output, github_output):
+def main(pkg_name, pkg_version, pkg_arch, pkg_file_map, input, output):
     click.echo("Welcome to " + APP_NAME + " by " + APP_AUTHOR + "\n")
 
     # Saves the Package Variables
@@ -185,10 +184,10 @@ def main(pkg_name, pkg_version, pkg_arch, pkg_file_map, input, output, github_ou
     output_src = output
     print("Output Prefix: " + output_src + "\n")
 
-    # Opens the GitHub Environments File (replaces ::set-output)
+    # Opens the GitHub Outputs Environment File (replaces ::set-output)
     global gh_outputs_file_path
-    gh_outputs_file_path = github_output
-    gh_env_file = open(gh_outputs_file_path, "w")
+    gh_outputs_file_path = os.getenv("GITHUB_OUTPUT")
+    gh_outputs_file = open(gh_outputs_file_path, "a")
 
     # Loads JSON File as a local variable
     the_map = json.load(pkg_file_map)
@@ -222,8 +221,8 @@ def main(pkg_name, pkg_version, pkg_arch, pkg_file_map, input, output, github_ou
     print("Completed!")
 
     # Sets a GitHub Actions output variable
-    gh_env_file.write("{generated_package_path}={" + get_final_package_path() + "}")
-    gh_env_file.close()
+    gh_outputs_file.write("generated_package_path=" + get_final_package_path() + "\n")
+    gh_outputs_file.close()
 
 
 # Ensures Main Function is to be run first
