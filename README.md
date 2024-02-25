@@ -1,7 +1,7 @@
 # Debian Packer
 Build Debian Packages with ease!
 
-![Debian Packer Example](https://github.com/Nightwind-Developments/debian-packer/workflows/Debian%20Packer%20Example/badge.svg?branch=main)
+[![Debian Packer Example](https://github.com/Nightwind-Developments/debian-packer/actions/workflows/debian-packer.yaml/badge.svg?branch=main)](https://github.com/Nightwind-Developments/debian-packer/actions/workflows/debian-packer.yaml)
 
 ## Contents
 1. [Description](#description)
