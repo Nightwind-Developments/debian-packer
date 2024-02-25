@@ -50,6 +50,10 @@ output_src = str()
 DEFAULT_OUTPUT_PATH = "./output"
 HELP_OP = "Path to directory where the package will be written to."
 
+# GitHub Actions Output Environment File
+HELP_GHO = ("Path to environment file where GitHub Actions Outputs are appended to to set Action Environment "
+            "Variables. Its alias is usually '$GITHUB_OUTPUT'.")
+
 # JSON Map File Keys
 KEY_NAME = "name"
 KEY_PATH = "path"
@@ -180,6 +184,11 @@ def main(pkg_name, pkg_version, pkg_arch, pkg_file_map, input, output):
     output_src = output
     print("Output Prefix: " + output_src + "\n")
 
+    # Opens the GitHub Outputs Environment File (replaces ::set-output)
+    global gh_outputs_file_path
+    gh_outputs_file_path = os.getenv("GITHUB_OUTPUT")
+    gh_outputs_file = open(gh_outputs_file_path, "a")
+
     # Loads JSON File as a local variable
     the_map = json.load(pkg_file_map)
 
@@ -212,7 +221,8 @@ def main(pkg_name, pkg_version, pkg_arch, pkg_file_map, input, output):
     print("Completed!")
 
     # Sets a GitHub Actions output variable
-    print("::set-output name=generated_package_path::" + get_final_package_path())
+    gh_outputs_file.write("generated_package_path=" + get_final_package_path() + "\n")
+    gh_outputs_file.close()
 
 
 # Ensures Main Function is to be run first
