@@ -41,7 +41,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Generate Control File
         id: control-gen
@@ -75,7 +75,7 @@ jobs:
           package_arch: 'all'
 
       - name: Upload Generated Package File
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: generated-hello-world-package
           path: "${{ steps.container.outputs.generated_package_path }}"
