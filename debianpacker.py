@@ -188,7 +188,7 @@ def main(pkg_name, pkg_version, pkg_arch, pkg_file_map, input, output, github_ou
     # Opens the GitHub Environments File (replaces ::set-output)
     global gh_outputs_file_path
     gh_outputs_file_path = github_output
-    gh_env_file = open(gh_outputs_file_path, "a")
+    gh_env_file = open(gh_outputs_file_path, "w")
 
     # Loads JSON File as a local variable
     the_map = json.load(pkg_file_map)
