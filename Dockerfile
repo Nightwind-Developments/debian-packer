@@ -15,4 +15,4 @@ ENTRYPOINT ["/entrypoint.sh"]
 # Installs Python and VENV and creates a Python Virtual Environment (venv)
 ENV PATH="$VENV/bin:$PATH"
 RUN apt-get update && apt-get install -y python3 python3-pip python3-venv && ln -s python3 /usr/bin/python && python3 -m venv $VENV
-RUN pip install -r /requirements.txt
+RUN pip3 install -r /requirements.txt
