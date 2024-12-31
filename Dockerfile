@@ -1,12 +1,18 @@
 FROM ubuntu:24.04
 
+# Sets the Virtual Environment path as an environment variable
+ENV VENV=/opt/venv
+
+# Copies the required files
 COPY entrypoint.sh /entrypoint.sh
 COPY debianpacker.py /usr/bin/debpack
 COPY requirements.txt /requirements.txt
 
+# Makes the entrypoint.sh Script an executable and sets it as an Entrypoint
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
-RUN apt-get update
-RUN apt-get install -y python3 python3-pip && ln -s python3 /usr/bin/python
+# Installs Python and VENV and creates a Python Virtual Environment (venv)
+RUN apt-get update && apt-get install -y python3 python3-pip python3-venv && ln -s python3 /usr/bin/python && python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN pip3 install -r /requirements.txt
